@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  id serial NOT NULL,
+  id bigint NOT NULL,
   name varchar(255) NOT NULL,
   created_at timestamp NOT NULL,
   updated_at timestamp NOT NULL,
@@ -7,9 +7,9 @@ CREATE TABLE users (
 );
 
 CREATE TABLE portfolios (
-  id serial NOT NULL,
+  id bigint NOT NULL,
   user_id bigint NOT NULL,
-  title string,
+  title varchar(255) NOT NULL,
   created_at timestamp,
   updated_at timestamp,
   PRIMARY KEY (id),
@@ -17,9 +17,9 @@ CREATE TABLE portfolios (
 );
 
 CREATE TABLE brands (
-  id serial NOT NULL,
+  id bigint NOT NULL,
   name varchar(255) NOT NULL,
-  price integer,
+  price integer NOT NULL,
   quantity integer,
   evaluated_price integer,
   profit_and_loss integer,
@@ -30,8 +30,8 @@ CREATE TABLE brands (
 );
 
 CREATE TABLE portfolios_belong_to_brand (
-  id serial NOT NULL,
-  portfolio_id bigint, NOT NULL,
+  id bigint NOT NULL,
+  portfolio_id bigint NOT NULL,
   brand_id bigint NOT NULL,
   created_at timestamp,
   updated_at timestamp,
@@ -41,10 +41,10 @@ CREATE TABLE portfolios_belong_to_brand (
 );
 
 CREATE TABLE strategies (
-  id serial NOT NULL,
+  id bigint NOT NULL,
   brand_id bigint NOT NULL,
   name varchar(255) NOT NULL,
-  created_at timestamp NOT NULL,
-  updated_at timestamp NOT NULL,
+  created_at timestamp,
+  updated_at timestamp,
   PRIMARY KEY (id)
 );

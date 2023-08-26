@@ -8,13 +8,13 @@ services:
   #
   sample-pg:
     image: postgres:15-bullseye
-    container_name: sample-pg
+    container_name: autocryptor-pg
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: sample-user
-      POSTGRES_PASSWORD: sample-pass
-      POSTGRES_DB: sample-db
+      POSTGRES_USER: autocryptor-user
+      POSTGRES_PASSWORD: autocryptor-pass
+      POSTGRES_DB: autocryptor-db
       POSTGRES_INIT_DB_ARGS: --encoding=UTF-8
     volumes:
       - type: bind
