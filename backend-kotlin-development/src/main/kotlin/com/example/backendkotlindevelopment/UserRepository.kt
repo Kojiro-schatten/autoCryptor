@@ -3,7 +3,7 @@ package com.example.backendkotlindevelopment
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
-
+import java.time.LocalDateTime
 /**
  * Customer: Interface that consolidates methods to operate on a table.
  *
@@ -43,16 +43,22 @@ class UserRepositoryImpl(val namedParameterJdbcTemplate: NamedParameterJdbcTempl
     override fun add(name: String) {
         val sql = """
             INSERT INTO
-                user (
-                    name
+                users (
+                    name,
+                    created_at,
+                    updated_at
                 )
             VALUES (
-                :name
+                :name,
+                :created_at,
+                :updated_at
             )
             ;
         """.trimIndent()
         val sqlParams = MapSqlParameterSource()
             .addValue("name", name)
+            .addValue("created_at", LocalDateTime.now())
+            .addValue("updated_at", LocalDateTime.now())
         namedParameterJdbcTemplate.update(sql, sqlParams)
         return
     }
