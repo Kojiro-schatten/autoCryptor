@@ -6,7 +6,7 @@ services:
   #
   # PostgreSQL
   #
-  sample-pg:
+  autocrypt-pg:
     image: postgres:15-bullseye
     container_name: autocryptor-pg
     ports:
