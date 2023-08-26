@@ -1,6 +1,7 @@
 package com.example.backendkotlindevelopment
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -20,6 +21,7 @@ class UserController(val userService: UserService) {
      * @param request
      * @return
      */
+    @CrossOrigin(origins = arrayOf("*"))
     @PostMapping("users") // アノテーションされたメソッドに対して、指定された URL パスの POST メソッドを対応付けします
     // @RequestBody: リクエストボディを指定します
     fun insert(@RequestBody request: UserRequest): String {
