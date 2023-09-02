@@ -53,6 +53,7 @@ class UserController(val userService: UserService) {
     }
 
     @DeleteMapping("/users/{id}")
+    @CrossOrigin
     fun delete(@PathVariable("id") id: Int): String {
         userService.deleteUser(id)
         return """
