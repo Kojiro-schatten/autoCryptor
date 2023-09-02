@@ -18,7 +18,8 @@ interface UserService {
      *
      * @return
      */
-//    fun selectUser(): List<User>
+    fun selectUser(): List<User>
+
 }
 
 /**
@@ -31,5 +32,9 @@ class UserServiceImpl(val userRepository: UserRepository): UserService {
     override fun insertUser(name: String) {
         userRepository.add(name)
         return
+    }
+
+    override fun selectUser(): List<User> {
+        return userRepository.find()
     }
 }

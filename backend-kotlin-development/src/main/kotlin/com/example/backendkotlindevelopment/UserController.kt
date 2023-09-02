@@ -3,6 +3,7 @@ package com.example.backendkotlindevelopment
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
@@ -32,7 +33,11 @@ class UserController(val userService: UserService) {
             }
         """.trimIndent()
     }
-    // TODO: update, delete, ...
+
+    @GetMapping("/users")
+    fun read(): UserResponse {
+        return UserResponse(users = userService.selectUser())
+    }
 }
 
 /**
@@ -42,4 +47,14 @@ class UserController(val userService: UserService) {
  */
 data class UserRequest(
     @JsonProperty("name") val name: String
+)
+
+/**
+ * User end point for get
+ *
+ * @property users
+ */
+
+data class UserResponse(
+    val users: List<User>
 )

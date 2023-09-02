@@ -3,6 +3,7 @@ package com.example.backendkotlindevelopment
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository
+import java.sql.Timestamp
 import java.time.LocalDateTime
 /**
  * Customer: Interface that consolidates methods to operate on a table.
@@ -22,7 +23,7 @@ interface UserRepository {
      *
      * @return
      */
-//    fun find(): List<User>
+    fun find(): List<User>
 
     /**
      * Method: to update Customer Table Column
@@ -61,5 +62,28 @@ class UserRepositoryImpl(val namedParameterJdbcTemplate: NamedParameterJdbcTempl
             .addValue("updated_at", LocalDateTime.now())
         namedParameterJdbcTemplate.update(sql, sqlParams)
         return
+    }
+
+    override fun find(): List<User> {
+        val sql = """
+            SELECT
+                id,
+                name,
+                created_at,
+                updated_at
+            FROM
+                users
+            ;
+        """.trimIndent()
+        val sqlParams = MapSqlParameterSource()
+        val userMap = namedParameterJdbcTemplate.queryForList(sql, sqlParams)
+        return userMap.map {
+            User(
+                it["id"].toString().toInt().toLong(),
+                it["name"].toString(),
+                (it["created_at"] as Timestamp).toLocalDateTime(),
+                (it["updated_at"] as Timestamp).toLocalDateTime(),
+            )
+        }
     }
 }
