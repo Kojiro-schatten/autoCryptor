@@ -26,6 +26,12 @@ interface UserService {
      * @param name
      */
     fun updateUser(id: Int, name: String)
+    /**
+     * User delete
+     *
+     * @param id
+     */
+    fun deleteUser(id: Int)
 }
 
 /**
@@ -46,6 +52,10 @@ class UserServiceImpl(val userRepository: UserRepository): UserService {
 
     override fun updateUser(id: Int, name: String) {
         userRepository.update(id, name)
+        return
+    }
+    override fun deleteUser(id: Int) {
+        userRepository.delete(id)
         return
     }
 }

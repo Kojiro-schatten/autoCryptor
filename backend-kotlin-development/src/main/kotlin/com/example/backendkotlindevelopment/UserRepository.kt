@@ -32,6 +32,13 @@ interface UserRepository {
      * @param name
      */
     fun update(id: Int, name: String)
+
+    /**
+     * User: to delete User table column
+     *
+     * @param id
+     */
+    fun delete(id: Int)
 }
 
 /**
@@ -101,6 +108,20 @@ class UserRepositoryImpl(val namedParameterJdbcTemplate: NamedParameterJdbcTempl
             .addValue("name", name)
             .addValue("id", id)
             .addValue("updated_at", LocalDateTime.now())
+        namedParameterJdbcTemplate.update(sql, sqlParams)
+        return
+    }
+
+    override fun delete(id: Int) {
+        val sql = """
+            DELETE FROM
+                users
+            WHERE
+                id = :id
+            ;
+        """.trimIndent()
+        val sqlParams = MapSqlParameterSource()
+            .addValue("id", id)
         namedParameterJdbcTemplate.update(sql, sqlParams)
         return
     }

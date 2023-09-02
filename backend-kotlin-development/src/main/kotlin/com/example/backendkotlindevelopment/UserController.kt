@@ -2,6 +2,7 @@ package com.example.backendkotlindevelopment
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -44,6 +45,16 @@ class UserController(val userService: UserService) {
     @PutMapping("/users/{id}")
     fun update(@PathVariable("id") id: Int, @RequestBody request: UserRequest): String {
         userService.updateUser(id, request.name)
+        return """
+            {
+                "message": "success"
+            }
+        """.trimIndent()
+    }
+
+    @DeleteMapping("/users/{id}")
+    fun delete(@PathVariable("id") id: Int): String {
+        userService.deleteUser(id)
         return """
             {
                 "message": "success"
