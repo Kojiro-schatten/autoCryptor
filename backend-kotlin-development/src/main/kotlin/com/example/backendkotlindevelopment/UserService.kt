@@ -19,7 +19,13 @@ interface UserService {
      * @return
      */
     fun selectUser(): List<User>
-
+    /**
+     * User update
+     *
+     * @param id
+     * @param name
+     */
+    fun updateUser(id: Int, name: String)
 }
 
 /**
@@ -36,5 +42,10 @@ class UserServiceImpl(val userRepository: UserRepository): UserService {
 
     override fun selectUser(): List<User> {
         return userRepository.find()
+    }
+
+    override fun updateUser(id: Int, name: String) {
+        userRepository.update(id, name)
+        return
     }
 }

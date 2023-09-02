@@ -31,7 +31,7 @@ interface UserRepository {
      * @param id
      * @param name
      */
-//    fun update(id: Int, name: String)
+    fun update(id: Int, name: String)
 }
 
 /**
@@ -85,5 +85,23 @@ class UserRepositoryImpl(val namedParameterJdbcTemplate: NamedParameterJdbcTempl
                 (it["updated_at"] as Timestamp).toLocalDateTime(),
             )
         }
+    }
+
+    override fun update(id: Int, name: String) {
+        val sql = """
+            UPDATE
+                users
+            SET
+                name = :name
+            WHERE
+                id = :id
+            ;
+        """.trimIndent()
+        val sqlParams = MapSqlParameterSource()
+            .addValue("name", name)
+            .addValue("id", id)
+            .addValue("updated_at", LocalDateTime.now())
+        namedParameterJdbcTemplate.update(sql, sqlParams)
+        return
     }
 }
